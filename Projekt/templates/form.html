@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Generator</title>
+</head>
+<body>
+    <h2>Vnesi podatke</h2>
+    <form method="post">
+        <label>Username:</label><br>
+        <input type="text" name="username"><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="password"><br><br>
+
+        <label>Org ID:</label><br>
+        <input type="text" name="org_id"><br><br>
+
+        <input type="submit" value="Zaženi">
+    </form>
+
+    {% if result %}
+        <h3>Rezultat:</h3>
+        <pre>{{ result }}</pre>
+    {% endif %}
+</body>
+</html>

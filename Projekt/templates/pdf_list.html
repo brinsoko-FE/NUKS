@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF seznam</title>
+</head>
+<body>
+    <h2>PDF-ji v bazi</h2>
+
+    {% if files %}
+        <ul>
+        {% for file in files %}
+            <li>
+                <a href="/pdfs/{{ file[0] }}">{{ file[1] }}</a>
+                — {{ file[2] }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Ni shranjenih PDF-jev.</p>
+    {% endif %}
+
+    <a href="/">⟵ Nazaj na obrazec</a>
+</body>
+</html>
