@@ -19,9 +19,8 @@ def submit(
     username: str = Form(...),
     password: str = Form(...),
     org_id: str = Form(...),
-    output_folder: str = Form(...)
 ):
-    result = run(username, password, org_id, output_folder)
+    result = run(username, password, org_id)
     return templates.TemplateResponse("form.html", {
         "request": request,
         "result": result

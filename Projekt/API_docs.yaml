@@ -1,0 +1,94 @@
+openapi: 3.0.3
+info:
+  title: PDF Form & Download API
+  description: API za oddajo podatkov prek obrazca, generiranje poročil in prenos PDF datotek iz baze.
+  version: "1.0.0"
+servers:
+  - url: http://localhost:8000
+
+paths:
+  /:
+    get:
+      summary: Prikaži obrazec
+      operationId: getForm
+      responses:
+        '200':
+          description: Prikazan HTML obrazec
+          content:
+            text/html:
+              schema:
+                type: string
+
+    post:
+      summary: Oddaja obrazca in izvedba funkcije
+      operationId: submitForm
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                org_id:
+                  type: string
+              required:
+                - username
+                - password
+                - org_id
+      responses:
+        '200':
+          description: HTML stran z rezultatom
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /pdfs:
+    get:
+      summary: Prikaži seznam PDF datotek
+      operationId: listPdfs
+      responses:
+        '200':
+          description: Seznam PDF datotek
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /pdfs/{pdf_id}:
+    get:
+      summary: Prenesi PDF datoteko po ID-ju
+      operationId: downloadPdf
+      parameters:
+        - name: pdf_id
+          in: path
+          required: true
+          description: ID PDF datoteke
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: PDF datoteka
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+          headers:
+            Content-Disposition:
+              description: Ime PDF datoteke za prenos
+              schema:
+                type: string
+        '404':
+          description: Datoteka ni najdena
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
